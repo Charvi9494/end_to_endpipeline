@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "tasketldatafactory"
+		},
+		"AzureDataLakeStorage_accountKey": {
+			"value": ""
+		},
+		"AzureDatabricks_accessToken": {
+			"value": ""
+		},
+		"DataLakeStorage_accountKey": {
+			"value": ""
+		},
+		"SqlServerinfo_password": {
+			"value": ""
+		},
+		"AzureDataLakeStorage_properties_typeProperties_url": {
+			"value": "https://etlstac.dfs.core.windows.net/"
+		},
+		"AzureDatabricks_properties_typeProperties_existingClusterId": {
+			"value": "0604-070624-bw9drp0r"
+		},
+		"DataLakeStorage_properties_typeProperties_url": {
+			"value": "https://tasketlsa.dfs.core.windows.net/"
+		},
+		"SqlServerinfo_properties_typeProperties_server": {
+			"value": "etltask.database.windows.net"
+		},
+		"SqlServerinfo_properties_typeProperties_database": {
+			"value": "tasketldb"
+		},
+		"SqlServerinfo_properties_typeProperties_userName": {
+			"value": "etltask"
+		}
+	}
+}
