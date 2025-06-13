@@ -1,0 +1,17 @@
+{
+	"name": "tasketldatafactory",
+	"properties": {
+		"globalParameters": {
+			"container_name": {
+				"type": "string",
+				"value": "etltask"
+			}
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "056b8113-95de-4223-b27e-bb0b14a54e08",
+		"tenantId": "b637c4f6-57b7-44dc-bce4-fec0cd202460"
+	}
+}

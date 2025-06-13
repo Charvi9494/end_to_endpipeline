@@ -1,0 +1,17 @@
+{
+	"name": "Psink",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServerinfo",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "semantic",
+			"table": "fact_quality_material_movement"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
