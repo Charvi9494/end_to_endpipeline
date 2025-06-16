@@ -296,7 +296,7 @@
 							}
 						},
 						{
-							"name": "end_timee",
+							"name": "end_time",
 							"type": "DatabricksNotebook",
 							"dependsOn": [
 								{
@@ -322,8 +322,14 @@
 										"type": "Expression"
 									},
 									"process_name": "end_time",
-									"table_names": "@item().Table_Names",
-									"job_id": "@string(item().JobID)"
+									"table_names": {
+										"value": "@item().Table_Names",
+										"type": "Expression"
+									},
+									"job_id": {
+										"value": "@string(item().JobID)",
+										"type": "Expression"
+									}
 								}
 							},
 							"linkedServiceName": {
@@ -332,7 +338,7 @@
 							}
 						},
 						{
-							"name": "end_time",
+							"name": "end_time_1",
 							"type": "DatabricksNotebook",
 							"dependsOn": [
 								{
@@ -358,8 +364,14 @@
 										"type": "Expression"
 									},
 									"process_name": "end_time",
-									"table_names": "@item().Table_Names",
-									"job_id": "@string(item().JobID)"
+									"table_names": {
+										"value": "@item().Table_Names",
+										"type": "Expression"
+									},
+									"job_id": {
+										"value": "@string(item().JobID)",
+										"type": "Expression"
+									}
 								}
 							},
 							"linkedServiceName": {
