@@ -834,7 +834,7 @@
 									}
 								},
 								{
-									"name": "end_timee",
+									"name": "end_time",
 									"type": "DatabricksNotebook",
 									"dependsOn": [
 										{
@@ -876,7 +876,7 @@
 									}
 								},
 								{
-									"name": "end_time",
+									"name": "end_time_1",
 									"type": "DatabricksNotebook",
 									"dependsOn": [
 										{
