@@ -320,15 +320,10 @@
 				"typeProperties": {
 					"notebookPath": "/Users/21691a05e6@mits.ac.in/Etl_nb",
 					"baseParameters": {
-						"pipeline_name": {
-							"value": "@pipeline().Pipeline",
-							"type": "Expression"
-						},
-						"pipeline_run_id": {
-							"value": "@pipeline().RunId",
-							"type": "Expression"
-						},
-						"process_name": "end_time"
+						"pipeline_name": "@pipeline().Pipeline",
+						"process_name": "end_time",
+						"table_names": "@item().Table_Names",
+						"job_id": "@string(item().JobID)"
 					}
 				},
 				"linkedServiceName": {
