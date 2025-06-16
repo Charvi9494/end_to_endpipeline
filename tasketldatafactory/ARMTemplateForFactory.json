@@ -633,7 +633,7 @@
 									}
 								},
 								{
-									"name": "end_time_1",
+									"name": "end_time1",
 									"type": "DatabricksNotebook",
 									"dependsOn": [
 										{
