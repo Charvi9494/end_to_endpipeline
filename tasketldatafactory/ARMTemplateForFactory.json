@@ -619,11 +619,15 @@
 									"value": "@pipeline().Pipeline",
 									"type": "Expression"
 								},
-								"pipeline_run_id": {
-									"value": "@pipeline().RunId",
+								"process_name": "end_time",
+								"table_names": {
+									"value": "@item().Table_Names",
 									"type": "Expression"
 								},
-								"process_name": "end_time"
+								"job_id": {
+									"value": "@string(item().JobID)",
+									"type": "Expression"
+								}
 							}
 						},
 						"linkedServiceName": {
