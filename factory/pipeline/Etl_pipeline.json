@@ -294,41 +294,80 @@
 								"referenceName": "AzureDatabricks",
 								"type": "LinkedServiceReference"
 							}
+						},
+						{
+							"name": "end_timee",
+							"type": "DatabricksNotebook",
+							"dependsOn": [
+								{
+									"activity": "archive_on_success",
+									"dependencyConditions": [
+										"Completed"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"notebookPath": "/Users/21691a05e6@mits.ac.in/Etl_nb",
+								"baseParameters": {
+									"pipeline_name": {
+										"value": "@pipeline().Pipeline",
+										"type": "Expression"
+									},
+									"process_name": "end_time",
+									"table_names": "@item().Table_Names",
+									"job_id": "@string(item().JobID)"
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "AzureDatabricks",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "end_time",
+							"type": "DatabricksNotebook",
+							"dependsOn": [
+								{
+									"activity": "archive_on_failure",
+									"dependencyConditions": [
+										"Completed"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"notebookPath": "/Users/21691a05e6@mits.ac.in/Etl_nb",
+								"baseParameters": {
+									"pipeline_name": {
+										"value": "@pipeline().Pipeline",
+										"type": "Expression"
+									},
+									"process_name": "end_time",
+									"table_names": "@item().Table_Names",
+									"job_id": "@string(item().JobID)"
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "AzureDatabricks",
+								"type": "LinkedServiceReference"
+							}
 						}
 					]
-				}
-			},
-			{
-				"name": "end_time",
-				"type": "DatabricksNotebook",
-				"dependsOn": [
-					{
-						"activity": "foreach",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"notebookPath": "/Users/21691a05e6@mits.ac.in/Etl_nb",
-					"baseParameters": {
-						"pipeline_name": "@pipeline().Pipeline",
-						"process_name": "end_time",
-						"table_names": "@item().Table_Names",
-						"job_id": "@string(item().JobID)"
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "AzureDatabricks",
-					"type": "LinkedServiceReference"
 				}
 			},
 			{
@@ -336,9 +375,9 @@
 				"type": "SetVariable",
 				"dependsOn": [
 					{
-						"activity": "end_time",
+						"activity": "foreach",
 						"dependencyConditions": [
-							"Completed"
+							"Succeeded"
 						]
 					}
 				],
@@ -350,7 +389,7 @@
 				"typeProperties": {
 					"variableName": "status",
 					"value": {
-						"value": "@if(equals(activity('end_time').status, 'Succeeded'), 'Success', 'Failure')",
+						"value": "@if(equals(activity('end_time').status, 'Succeeded'), 'Succeeded', 'Failed')\n",
 						"type": "Expression"
 					}
 				}
