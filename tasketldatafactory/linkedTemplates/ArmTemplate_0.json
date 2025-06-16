@@ -691,14 +691,6 @@
 									"typeProperties": {
 										"notebookPath": "/Users/21691a05e6@mits.ac.in/Etl_nb",
 										"baseParameters": {
-											"pipeline_name": {
-												"value": "@pipeline().Pipeline",
-												"type": "Expression"
-											},
-											"pipeline_run_id": {
-												"value": "@pipeline().RunId",
-												"type": "Expression"
-											},
 											"process_name": "start_time"
 										}
 									},
