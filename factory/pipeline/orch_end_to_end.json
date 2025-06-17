@@ -12,7 +12,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "Etl_pipeline",
+						"referenceName": "S2C",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true

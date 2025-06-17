@@ -1,5 +1,5 @@
 {
-	"name": "Etl_pipeline",
+	"name": "S2C",
 	"properties": {
 		"activities": [
 			{
@@ -296,7 +296,7 @@
 							}
 						},
 						{
-							"name": "end_time",
+							"name": "end_time_on_success",
 							"type": "DatabricksNotebook",
 							"dependsOn": [
 								{
@@ -338,7 +338,7 @@
 							}
 						},
 						{
-							"name": "end_time1",
+							"name": "end_time_on_failure",
 							"type": "DatabricksNotebook",
 							"dependsOn": [
 								{
