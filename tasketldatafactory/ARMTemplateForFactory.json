@@ -577,7 +577,7 @@
 									"typeProperties": {
 										"notebookPath": "/Users/21691a05e6@mits.ac.in/Etl_nb",
 										"baseParameters": {
-											"Table_Names": {
+											"table_names": {
 												"value": "@item().Table_Names",
 												"type": "Expression"
 											},
