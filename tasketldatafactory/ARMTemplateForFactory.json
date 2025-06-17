@@ -623,7 +623,7 @@
 									"typeProperties": {
 										"notebookPath": "/Users/21691a05e6@mits.ac.in/Etl_nb",
 										"baseParameters": {
-											"Table_Names": {
+											"table_names": {
 												"value": "@item().Table_Names",
 												"type": "Expression"
 											},
@@ -661,8 +661,8 @@
 									"typeProperties": {
 										"notebookPath": "/Users/21691a05e6@mits.ac.in/Etl_nb",
 										"baseParameters": {
-											"File_Names": {
-												"value": "@item().File_Names",
+											"table_names": {
+												"value": "@item().Table_Names",
 												"type": "Expression"
 											},
 											"landing_path": {
