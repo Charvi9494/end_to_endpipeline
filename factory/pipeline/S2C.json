@@ -329,6 +329,10 @@
 									"job_id": {
 										"value": "@string(item().JobID)",
 										"type": "Expression"
+									},
+									"status": {
+										"value": "@{activity('archive_on_success').status}",
+										"type": "Expression"
 									}
 								}
 							},
@@ -370,6 +374,10 @@
 									},
 									"job_id": {
 										"value": "@string(item().JobID)",
+										"type": "Expression"
+									},
+									"status": {
+										"value": "@{activity('archive_on_failure').status}",
 										"type": "Expression"
 									}
 								}
