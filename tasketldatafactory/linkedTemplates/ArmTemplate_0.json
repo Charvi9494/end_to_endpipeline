@@ -534,7 +534,143 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Etl_pipeline')]",
+			"name": "[concat(parameters('factoryName'), '/P2S')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "path_info",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderQuery": "SELECT tm.*, jm.jobname\nFROM meta_data.table_meta tm\ninner join meta_data.job_metadata jm ON tm.JobID = jm.jobid\nWHERE jm.jobname = 'P2S';",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "sqlserver",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "path_info",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('path_info').output.value",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy data",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "ParquetSource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"wildcardFileName": "*.*",
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "ParquetReadSettings"
+											}
+										},
+										"sink": {
+											"type": "SqlServerSink",
+											"writeBehavior": "insert",
+											"sqlWriterUseTableLock": false
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "Psrc",
+											"type": "DatasetReference",
+											"parameters": {
+												"container_name": {
+													"value": "@pipeline().globalParameters.container_name",
+													"type": "Expression"
+												},
+												"Tables_Name": {
+													"value": "@item().Table_Names",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "Psink",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"variables": {
+					"status": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-06-11T06:45:53Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/sqlserver')]",
+				"[concat(variables('factoryId'), '/datasets/Psrc')]",
+				"[concat(variables('factoryId'), '/datasets/Psink')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/S2C')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -834,7 +970,7 @@
 									}
 								},
 								{
-									"name": "end_time",
+									"name": "end_time_on_success",
 									"type": "DatabricksNotebook",
 									"dependsOn": [
 										{
@@ -876,7 +1012,7 @@
 									}
 								},
 								{
-									"name": "end_time1",
+									"name": "end_time_on_failure",
 									"type": "DatabricksNotebook",
 									"dependsOn": [
 										{
@@ -940,142 +1076,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/P2S')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "path_info",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SqlServerSource",
-								"sqlReaderQuery": "SELECT tm.*, jm.jobname\nFROM meta_data.table_meta tm\ninner join meta_data.job_metadata jm ON tm.JobID = jm.jobid\nWHERE jm.jobname = 'P2S';",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "sqlserver",
-								"type": "DatasetReference",
-								"parameters": {}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "ForEach",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "path_info",
-								"dependencyConditions": [
-									"Completed"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('path_info').output.value",
-								"type": "Expression"
-							},
-							"activities": [
-								{
-									"name": "Copy data",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "0.12:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "ParquetSource",
-											"storeSettings": {
-												"type": "AzureBlobFSReadSettings",
-												"recursive": true,
-												"wildcardFileName": "*.*",
-												"enablePartitionDiscovery": false
-											},
-											"formatSettings": {
-												"type": "ParquetReadSettings"
-											}
-										},
-										"sink": {
-											"type": "SqlServerSink",
-											"writeBehavior": "insert",
-											"sqlWriterUseTableLock": false
-										},
-										"enableStaging": false,
-										"translator": {
-											"type": "TabularTranslator",
-											"typeConversion": true,
-											"typeConversionSettings": {
-												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
-											}
-										}
-									},
-									"inputs": [
-										{
-											"referenceName": "Psrc",
-											"type": "DatasetReference",
-											"parameters": {
-												"container_name": {
-													"value": "@pipeline().globalParameters.container_name",
-													"type": "Expression"
-												},
-												"Tables_Name": {
-													"value": "@item().Table_Names",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "Psink",
-											"type": "DatasetReference",
-											"parameters": {}
-										}
-									]
-								}
-							]
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"variables": {
-					"status": {
-						"type": "String"
-					}
-				},
-				"annotations": [],
-				"lastPublishTime": "2025-06-11T06:45:53Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/sqlserver')]",
-				"[concat(variables('factoryId'), '/datasets/Psrc')]",
-				"[concat(variables('factoryId'), '/datasets/Psink')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/orch_end_to_end')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1091,7 +1091,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "Etl_pipeline",
+								"referenceName": "S2C",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
@@ -1246,7 +1246,7 @@
 				"lastPublishTime": "2025-06-13T05:27:44Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Etl_pipeline')]",
+				"[concat(variables('factoryId'), '/pipelines/S2C')]",
 				"[concat(variables('factoryId'), '/pipelines/C2P')]",
 				"[concat(variables('factoryId'), '/pipelines/P2S')]"
 			]
