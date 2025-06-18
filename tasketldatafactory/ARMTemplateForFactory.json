@@ -293,7 +293,7 @@
 							},
 							"activities": [
 								{
-									"name": "Copy data",
+									"name": "p2s",
 									"type": "Copy",
 									"dependsOn": [
 										{
@@ -403,7 +403,7 @@
 									"type": "DatabricksNotebook",
 									"dependsOn": [
 										{
-											"activity": "Copy data",
+											"activity": "p2s",
 											"dependencyConditions": [
 												"Succeeded"
 											]
