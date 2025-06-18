@@ -108,6 +108,41 @@
 									"type": "DatasetReference"
 								}
 							]
+						},
+						{
+							"name": "start_time",
+							"type": "DatabricksNotebook",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"notebookPath": "/Users/21691a05e6@mits.ac.in/Etl_nb",
+								"baseParameters": {
+									"job_id": {
+										"value": "@string(item().JobID)\n",
+										"type": "Expression"
+									},
+									"table_names": {
+										"value": "@item().Table_Names",
+										"type": "Expression"
+									},
+									"process_name": "start_time",
+									"pipeline_name": {
+										"value": "@pipeline().Pipeline",
+										"type": "Expression"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "AzureDatabricks",
+								"type": "LinkedServiceReference"
+							}
 						}
 					]
 				}
