@@ -886,7 +886,7 @@
 							"headers": {},
 							"url": "https://prod-60.eastus.logic.azure.com:443/workflows/9a73b5ebe5264fb5b6d4a6faf95f304d/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=4m-usBFPrMHo73qiBc9xIysVAilcDDu-zk66J4PiT9I",
 							"body": {
-								"value": "{\n  \"dataFactoryName\": \"@{pipeline().DataFactory}\",\n  \"pipelineName\": \"@{pipeline().Pipeline}\",\n  \"pipelineRunId\": \"@{pipeline().RunId}\",\n  \"status\": \"@{activity('P2S').Status}\",\n  \"activityName\": \"@{activity('P2S').output.pipelineName}\",    \n  \"errorMessage\": \"@{string(activity('P2S').error)}\"\n}\n",
+								"value": "{\n  \"dataFactoryName\": \"@{pipeline().DataFactory}\",\n  \"pipelineName\": \"@{pipeline().Pipeline}\",\n  \"status\": \"@{activity('P2S').Status}\",\n  \"activityName\": \"@{activity('P2S').output.pipelineName}\",    \n  \"errorMessage\": \"@{if(equals(activity('P2S').Status, 'Failed'), string(activity('P2S').error), 'Execution completed without errors.')}\"\n}\n",
 								"type": "Expression"
 							}
 						}
@@ -915,7 +915,7 @@
 							"headers": {},
 							"url": "https://prod-60.eastus.logic.azure.com:443/workflows/9a73b5ebe5264fb5b6d4a6faf95f304d/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=4m-usBFPrMHo73qiBc9xIysVAilcDDu-zk66J4PiT9I",
 							"body": {
-								"value": "{\n  \"dataFactoryName\": \"@{pipeline().DataFactory}\",\n  \"pipelineName\": \"@{pipeline().Pipeline}\",\n  \"pipelineRunId\": \"@{pipeline().RunId}\",\n  \"status\": \"@{activity('S2C').Status}\",\n  \"activityName\": \"@{activity('S2C').output.pipelineName}\",    \n  \"errorMessage\": \"@{string(activity('S2C').error)}\"\n}\n",
+								"value": "{\n  \"dataFactoryName\": \"@{pipeline().DataFactory}\",\n  \"pipelineName\": \"@{pipeline().Pipeline}\",\n  \"status\": \"@{activity('S2C').Status}\",\n  \"activityName\": \"@{activity('S2C').output.pipelineName}\",    \n  \"errorMessage\": \"@{if(equals(activity('S2C').Status, 'Failed'), string(activity('S2C').error), 'Execution completed without errors.')}\"\n}\n",
 								"type": "Expression"
 							}
 						}
@@ -944,7 +944,7 @@
 							"headers": {},
 							"url": "https://prod-60.eastus.logic.azure.com:443/workflows/9a73b5ebe5264fb5b6d4a6faf95f304d/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=4m-usBFPrMHo73qiBc9xIysVAilcDDu-zk66J4PiT9I",
 							"body": {
-								"value": "{\n  \"dataFactoryName\": \"@{pipeline().DataFactory}\",\n  \"pipelineName\": \"@{pipeline().Pipeline}\",\n  \"pipelineRunId\": \"@{pipeline().RunId}\",\n  \"status\": \"@{activity('C2P').Status}\",\n  \"activityName\": \"@{activity('C2P').output.pipelineName}\",    \n  \"errorMessage\": \"@{string(activity('C2P').error)}\"\n}",
+								"value": "{\n  \"dataFactoryName\": \"@{pipeline().DataFactory}\",\n  \"pipelineName\": \"@{pipeline().Pipeline}\",\n  \"status\": \"@{activity('C2P').Status}\",\n  \"activityName\": \"@{activity('C2P').output.pipelineName}\",    \n  \"errorMessage\": \"@{if(equals(activity('C2P').Status, 'Failed'), string(activity('C2P').error), 'Execution completed without errors.')}\"\n}",
 								"type": "Expression"
 							}
 						}
