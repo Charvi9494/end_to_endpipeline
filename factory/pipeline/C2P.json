@@ -156,7 +156,8 @@
 									"status": {
 										"value": "@{activity('c2p').status}",
 										"type": "Expression"
-									}
+									},
+									"start_time": "@activity('start_time').output.runOutput.st_res"
 								}
 							},
 							"linkedServiceName": {
