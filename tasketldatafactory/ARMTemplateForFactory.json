@@ -213,6 +213,10 @@
 											"status": {
 												"value": "@{activity('c2p').status}",
 												"type": "Expression"
+											},
+											"start_time": {
+												"value": "@activity('start_time').output.runOutput.st_res",
+												"type": "Expression"
 											}
 										}
 									},
@@ -804,6 +808,10 @@
 											"status": {
 												"value": "@{activity('archive_on_success').status}",
 												"type": "Expression"
+											},
+											"start_time": {
+												"value": "@activity('start_time').output.runOutput.result\n",
+												"type": "Expression"
 											}
 										}
 									},
@@ -849,6 +857,10 @@
 											},
 											"status": {
 												"value": "@{activity('archive_on_failure').status}",
+												"type": "Expression"
+											},
+											"start_time": {
+												"value": "@activity('start_time').output.runOutput.result\n",
 												"type": "Expression"
 											}
 										}
