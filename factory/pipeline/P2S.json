@@ -189,6 +189,10 @@
 									"status": {
 										"value": "@{activity('p2s').status}",
 										"type": "Expression"
+									},
+									"start_time": {
+										"value": "@activity('start_time').output.runOutput.result",
+										"type": "Expression"
 									}
 								}
 							},
