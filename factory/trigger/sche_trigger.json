@@ -2,7 +2,7 @@
 	"name": "sche_trigger",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
+		"runtimeState": "Started",
 		"pipelines": [
 			{
 				"pipelineReference": {
@@ -17,6 +17,7 @@
 				"frequency": "Day",
 				"interval": 1,
 				"startTime": "2025-06-16T10:00:00",
+				"endTime": "2025-06-20T18:59:28",
 				"timeZone": "India Standard Time",
 				"schedule": {
 					"minutes": [
