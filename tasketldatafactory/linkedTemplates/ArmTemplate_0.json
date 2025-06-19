@@ -1047,10 +1047,6 @@
 											"status": {
 												"value": "@{activity('archive_on_success').status}",
 												"type": "Expression"
-											},
-											"start_time": {
-												"value": "@activity('archive_on_success').output.result\n",
-												"type": "Expression"
 											}
 										}
 									},
@@ -1096,10 +1092,6 @@
 											},
 											"status": {
 												"value": "@{activity('archive_on_failure').status}",
-												"type": "Expression"
-											},
-											"start_time": {
-												"value": "@activity('archive_on_failure').output.result\n",
 												"type": "Expression"
 											}
 										}
