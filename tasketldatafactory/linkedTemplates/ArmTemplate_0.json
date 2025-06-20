@@ -1103,7 +1103,7 @@
 												"type": "Expression"
 											},
 											"status": {
-												"value": "@{activity('archive_on_failure').status}",
+												"value": "@{activity('source_landingdata').status}",
 												"type": "Expression"
 											},
 											"start_time": {
