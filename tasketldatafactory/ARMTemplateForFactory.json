@@ -657,9 +657,9 @@
 									"type": "DatabricksNotebook",
 									"dependsOn": [
 										{
-											"activity": "end_time_on_failure",
+											"activity": "source_landingdata",
 											"dependencyConditions": [
-												"Completed"
+												"Succeeded"
 											]
 										}
 									],
@@ -823,56 +823,6 @@
 										"referenceName": "AzureDatabricks",
 										"type": "LinkedServiceReference"
 									}
-								},
-								{
-									"name": "end_time_on_failure",
-									"type": "DatabricksNotebook",
-									"dependsOn": [
-										{
-											"activity": "archive_on_failure",
-											"dependencyConditions": [
-												"Completed"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "0.12:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"notebookPath": "/Users/21691a05e6@mits.ac.in/Etl_nb",
-										"baseParameters": {
-											"pipeline_name": {
-												"value": "@pipeline().Pipeline",
-												"type": "Expression"
-											},
-											"process_name": "end_time",
-											"table_names": {
-												"value": "@item().Table_Names",
-												"type": "Expression"
-											},
-											"job_id": {
-												"value": "@string(item().JobID)",
-												"type": "Expression"
-											},
-											"status": {
-												"value": "@{activity('archive_on_failure').status}",
-												"type": "Expression"
-											},
-											"start_time": {
-												"value": "@activity('start_time').output.runOutput.result\n",
-												"type": "Expression"
-											}
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "AzureDatabricks",
-										"type": "LinkedServiceReference"
-									}
 								}
 							]
 						}
@@ -991,7 +941,7 @@
 							"headers": {},
 							"url": "https://prod-60.eastus.logic.azure.com:443/workflows/9a73b5ebe5264fb5b6d4a6faf95f304d/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=4m-usBFPrMHo73qiBc9xIysVAilcDDu-zk66J4PiT9I",
 							"body": {
-								"value": "{\n  \"dataFactoryName\": \"@{pipeline().DataFactory}\",\n  \"pipelineName\": \"@{pipeline().Pipeline}\",\n  \"status\": \"@{activity('P2S').Status}\",\n  \"activityName\": \"@{activity('P2S').output.pipelineName}\",    \n  \"errorMessage\": \"@{if(equals(activity('P2S').Status, 'Failed'), activity('P2S').Error.message, '')}\"\n}\n",
+								"value": "{\n  \"dataFactoryName\": \"@{pipeline().DataFactory}\",\n  \"pipelineName\": \"@{pipeline().Pipeline}\",\n  \"pipelineRunId\": \"@{pipeline().RunId}\",\n  \"status\": \"@{activity('P2S').Status}\",\n  \"activityName\": \"@{activity('P2S').output.pipelineName}\",    \n  \"errorMessage\": \"@{if(equals(activity('P2S').Status, 'Failed'), activity('P2S').Error.message, '')}\"\n}\n",
 								"type": "Expression"
 							}
 						}
@@ -1020,7 +970,7 @@
 							"headers": {},
 							"url": "https://prod-60.eastus.logic.azure.com:443/workflows/9a73b5ebe5264fb5b6d4a6faf95f304d/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=4m-usBFPrMHo73qiBc9xIysVAilcDDu-zk66J4PiT9I",
 							"body": {
-								"value": "{\n  \"dataFactoryName\": \"@{pipeline().DataFactory}\",\n  \"pipelineName\": \"@{pipeline().Pipeline}\",\n  \"status\": \"@{activity('S2C').Status}\",\n  \"activityName\": \"@{activity('S2C').output.pipelineName}\",    \n  \"errorMessage\": \"@{if(equals(activity('S2C').Status, 'Failed'), activity('S2C').Error.message, '')}\"\n}\n \n",
+								"value": "{\n  \"dataFactoryName\": \"@{pipeline().DataFactory}\",\n  \"pipelineName\": \"@{pipeline().Pipeline}\",\n  \"pipelineRunId\": \"@{pipeline().RunId}\",\n  \"status\": \"@{activity('S2C').Status}\",\n  \"activityName\": \"@{activity('S2C').output.pipelineName}\",\n  \"errorMessage\": \"@{if(equals(activity('S2C').Status, 'Failed'), activity('S2C').Error.message, '')}\"\n}\n\n",
 								"type": "Expression"
 							}
 						}
@@ -1049,7 +999,7 @@
 							"headers": {},
 							"url": "https://prod-60.eastus.logic.azure.com:443/workflows/9a73b5ebe5264fb5b6d4a6faf95f304d/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=4m-usBFPrMHo73qiBc9xIysVAilcDDu-zk66J4PiT9I",
 							"body": {
-								"value": "{\n  \"dataFactoryName\": \"@{pipeline().DataFactory}\",\n  \"pipelineName\": \"@{pipeline().Pipeline}\",\n  \"status\": \"@{activity('C2P').Status}\",\n  \"activityName\": \"@{activity('C2P').output.pipelineName}\",    \n  \"errorMessage\": \"@{if(equals(activity('C2P').Status, 'Failed'), activity('C2P').Error.message, '')}\"\n}",
+								"value": "{\n  \"dataFactoryName\": \"@{pipeline().DataFactory}\",\n  \"pipelineName\": \"@{pipeline().Pipeline}\",\n  \"pipelineRunId\": \"@{pipeline().RunId}\",\n  \"status\": \"@{activity('C2P').Status}\",\n  \"activityName\": \"@{activity('C2P').output.pipelineName}\",    \n  \"errorMessage\": \"@{if(equals(activity('C2P').Status, 'Failed'), activity('C2P').Error.message, '')}\"\n}",
 								"type": "Expression"
 							}
 						}
