@@ -657,9 +657,9 @@
 									"type": "DatabricksNotebook",
 									"dependsOn": [
 										{
-											"activity": "source_landingdata",
+											"activity": "end_time_on_failure",
 											"dependencyConditions": [
-												"Succeeded"
+												"Completed"
 											]
 										}
 									],
@@ -737,44 +737,6 @@
 									}
 								},
 								{
-									"name": "archive_on_failure",
-									"type": "DatabricksNotebook",
-									"dependsOn": [
-										{
-											"activity": "landing_curateddata",
-											"dependencyConditions": [
-												"Failed"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "0.12:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"notebookPath": "/Users/21691a05e6@mits.ac.in/Etl_nb",
-										"baseParameters": {
-											"table_names": {
-												"value": "@item().Table_Names",
-												"type": "Expression"
-											},
-											"landing_path": {
-												"value": "@item().landing_path",
-												"type": "Expression"
-											},
-											"process_name": "archive"
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "AzureDatabricks",
-										"type": "LinkedServiceReference"
-									}
-								},
-								{
 									"name": "end_time_on_success",
 									"type": "DatabricksNotebook",
 									"dependsOn": [
@@ -817,6 +779,44 @@
 												"value": "@activity('start_time').output.runOutput.result\n",
 												"type": "Expression"
 											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "AzureDatabricks",
+										"type": "LinkedServiceReference"
+									}
+								},
+								{
+									"name": "archive_on_failure",
+									"type": "DatabricksNotebook",
+									"dependsOn": [
+										{
+											"activity": "source_landingdata",
+											"dependencyConditions": [
+												"Failed"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"notebookPath": "/Users/21691a05e6@mits.ac.in/Etl_nb",
+										"baseParameters": {
+											"table_names": {
+												"value": "@item().Table_Names",
+												"type": "Expression"
+											},
+											"landing_path": {
+												"value": "@item().landing_path",
+												"type": "Expression"
+											},
+											"process_name": "archive"
 										}
 									},
 									"linkedServiceName": {
